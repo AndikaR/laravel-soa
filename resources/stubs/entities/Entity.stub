@@ -1,0 +1,11 @@
+<?php namespace Entities;
+
+use Illuminate\Database\Eloquent\Model;
+
+class {{ Name }} extends Model
+{
+  protected $table = '{{ name }}';
+
+  public $timestamps = true;
+  protected $guarded = [];
+}

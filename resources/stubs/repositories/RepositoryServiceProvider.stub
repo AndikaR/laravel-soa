@@ -1,0 +1,23 @@
+<?php namespace Repositories\{{ Name }};
+
+use Entities\{{ Name }};
+use Repositories\{{ Name }}\{{ Name }}Repository;
+use Illuminate\Support\ServiceProvider;
+
+/**
+* Register our Repository with Laravel
+*/
+class BlogRepositoryServiceProvider extends ServiceProvider 
+{
+  /**
+  * Registers the interface with Laravels IoC Container
+  * 
+  */
+  public function register()
+  {
+    // Bind the returned class to the namespace of interface
+    $this->app->bind('Repositories\{{ Name }}\I{{ Name }}', function($app) {
+      return new {{ Name }}Repository(new {{ Name }}());
+    });
+  }
+}

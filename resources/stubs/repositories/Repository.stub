@@ -1,0 +1,55 @@
+<?php namespace Repositories\{{ Name }};
+
+use Illuminate\Database\Eloquent\Model;
+use \stdClass;
+
+class {{ Name }}Repository implements I{{ Name }}
+{
+  protected ${{ name }}Model;
+  
+  public function __construct(Model ${{ name }})
+  {
+    $this->{{ name }}Model = ${{ name }};
+  }
+
+  public function get{{ Name }}()
+  {
+    ${{ name }} = $this->{{ name }}Model->where('is_deleted', false)->get();
+
+    return $this->convertFormat(${{ name }});
+  }
+
+  public function createOrUpdate{{ Name }}($data, ${{ name }}Id)
+  {
+    if (!${{ name }}Id) {
+      ${{ name }} = $this->{{ name }}Model->create($data);
+
+      return $this->convertFormat(${{ name }});
+    } else {
+      ${{ name }} = $this->{{ name }}Model->find(${{ name }}Id);
+
+      ${{ name }}->id = ${{ name }}Id;
+
+      return $this->convertFormat(${{ name }}->save());
+    }
+  }
+
+  public function delete{{ Name }}(${{ name }}Id)
+  {
+    ${{ name }} = $this->{{ name }}Model->find(${{ name }}Id);
+
+    ${{ name }}->is_deleted = true;
+
+    return $this->convertFormat(${{ name }}->save());
+  }
+
+  public function get{{ Name }}ById(${{ name }}Id)
+  {
+    return $this->convertFormat($this->{{ name }}Model->find(${{ name }}Id));
+  }
+  
+  protected function convertFormat(${{ name }})
+  {
+    return ${{ name }} ? (object) ${{ name }}->toArray() : null;
+  }
+}

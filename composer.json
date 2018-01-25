@@ -1,0 +1,19 @@
+{
+    "name": "andikarus/laravel-soa",
+    "description": "Laravel 5.5 repository design pattern generator with SOA(Service Oriented Architecture)",
+    "type": "generator",
+    "license": "gpl",
+    "authors": [
+        {
+            "name": "Andika R",
+            "email": "andika.ruspandi@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Andikarus\\SOAGenerator\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {}
+}

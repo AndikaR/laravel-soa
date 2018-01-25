@@ -1,0 +1,15 @@
+<?php namespace Services\{{ Name }};
+
+use Illuminate\Support\ServiceProvider;
+
+class {{ Name }}ServiceServiceProvider extends ServiceProvider 
+{
+  public function register()
+  {
+    $this->app->bind('{{ name }}Service', function($app) {
+      return new {{ Name }}Service(
+        $app->make('Repositories\{{ Name }}\I{{ Name }}')
+      );
+    });
+  }
+}

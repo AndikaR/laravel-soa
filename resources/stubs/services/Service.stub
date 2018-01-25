@@ -1,0 +1,32 @@
+<?php namespace Services\{{ Name }};
+
+use Repositories\{{ Name }}\I{{ Name }};
+
+/**
+* Our {{ Name }}Service, containing all useful methods for business logic around {{ Name }}
+*/
+class {{ Name }}Service
+{
+  // Containing our {{ name }}Repository to make all our database calls to
+  protected ${{ name }}Repo;
+  
+  public function __construct(I{{ Name }} ${{ name }}Repo)
+  {
+    $this->{{ name }}Repo  = ${{ name }}Repo;
+  }
+
+  public function get{{ Name }}()
+  {
+    return $this->{{ name }}Repo->get{{ Name }}();
+  }
+
+  public function createOrUpdate{{ Name }}($data, ${{ name }}Id)
+  {
+    return $this->{{ name }}Repo->createOrUpdate{{ Name }}($data, ${{ name }}Id);
+  }
+
+  public function delete{{ Name }}(${{ name }}Id)
+  {
+    return $this->{{ name }}Repo->delete{{ Name }}(${{ name }}Id);
+  }
+}

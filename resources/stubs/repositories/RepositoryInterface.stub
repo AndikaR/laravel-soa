@@ -1,0 +1,9 @@
+<?php namespace Repositories\{{ Name }};
+
+interface I{{ Name }}
+{
+  public function get{{ Name }}ById(${{ name }}Id);
+  public function get{{ Name }}();
+  public function createOrUpdate{{ Name }}($data, ${{ name }}Id);
+  public function delete{{ Name }}(${{ name }}Id);
+}
