@@ -1,21 +1,33 @@
 <?php namespace Andikarus\SOAGenerator\Commands;
 
-class SOAGeneratorCommand extends BaseCommand
+use Illuminate\Console\Command;
+use Andikarus\SOAGenerator\Interfaces\IGenerator;
+use Andikarus\SOAGenerator\Interfaces\ICommand;
+
+class SOAGeneratorCommand extends Command implements ICommand
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'soa:generate {name} {--s|services} {--r|repositories}';
+  /**
+   * Variable to store IGenerator object
+   *
+   * @var mixin
+   */
+  protected $generator;
+    
+  /**
+    * The name and signature of the console command.
+    *
+    * @var string
+    */
+  protected $signature = 'soa:generate {name} {--s|services} {--r|repositories}';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Generate SOA template which located under app/Models directory';
+  /**
+    * The console command description.
+    *
+    * @var string
+    */
+  protected $description = 'Generate SOA template which located under app/Models directory';
 
+    /*
     protected $stubs = [
       'entities' => [
         [
@@ -64,22 +76,36 @@ class SOAGeneratorCommand extends BaseCommand
       'Name' => 'ucfirst',
       'name' => 'lcfirst'
     ];
+    */
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-      parent::__construct();
-    }
+  /**
+    * Create a new command instance.
+    *
+    * @return void
+    */
+  public function __construct()
+  {
+    //IGenerator $generator
+    parent::__construct();
+    //$this->generator = $generator;
+  }
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
+  public function getArguments()
+  {
+    return $this->arguments();
+  }
+
+  public function getOptions()
+  {
+    return $this->options();
+  }
+
+  public function output($message, $type = 'info')
+  {
+    return $this->{$type}($message);
+  }
+
+     /*
     public function handle()
     {
       $services = $this->option('services');
@@ -113,4 +139,17 @@ class SOAGeneratorCommand extends BaseCommand
         }
       }
     }
+    */
+
+  /**
+    * Execute the console command.
+    *
+    * @return mixed
+    */
+  public function handle()
+  {
+    //$this->generator->setArguments($this->arguments());
+    //$this->generator->setOptions($this->options());
+    //$this->generator->handle();
+  }
 }
