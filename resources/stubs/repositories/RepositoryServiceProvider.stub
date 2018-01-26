@@ -7,7 +7,7 @@ use Illuminate\Support\ServiceProvider;
 /**
 * Register our Repository with Laravel
 */
-class BlogRepositoryServiceProvider extends ServiceProvider 
+class {{ Name }}RepositoryServiceProvider extends ServiceProvider 
 {
   /**
   * Registers the interface with Laravels IoC Container
