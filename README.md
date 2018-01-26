@@ -50,4 +50,17 @@ app
             ├── ExampleService.php
             └── ExampleServiceServiceProvider.php
 ```
+Add the following configuration for namespace in your project composer.json if you use default `config/soagenerator.php` config
+```
+  "autoload": {
+    ...,
+    "psr-4": {
+       ...,
+       "Entities\\": "app/Models/Entities",
+       "Repositories\\": "app/Models/Repositories",
+       "Services\\": "app/Models/Services"
+    }
+  },
+```
+
 You can change this configuration in `config/soagenerator.php`. Please read http://dfg.gd/blog/decoupling-your-code-in-laravel-using-repositiories-and-services to use this pattern.
