@@ -9,16 +9,6 @@ class BaseCommand extends Command
   {
     return str_replace("\\", "/", implode("/", $paths));
   }
-  
-  /* Get target's full path based on configuration */
-  protected function getTargetFilePath($name, $repository, $detail)
-  {
-    return $this->joinPaths([
-      config('soagenerator.generator.basePath'),
-      config('soagenerator.generator.paths.' . $repository),
-      $this.getFileName($name, $detail) . '.php'
-    ]);
-  }
 
   /* Get file name with prefix and postfix */
   protected function getFileName($name, $detail)
@@ -27,12 +17,14 @@ class BaseCommand extends Command
   }
 
   /* Check if file exist */
-  protected function checkFile($targetPath)
+  protected function fileExists($targetPath)
   {
     if (file_exists($targetPath)) {
       $this->info('File exists! Skipping current file.');
-      return false;
+      return true;
     }
+
+    return false;
   }
 
   /* Get target directory which will be written */
@@ -62,16 +54,16 @@ class BaseCommand extends Command
       \File::makeDirectory($targetDirectory, 0755, true);
     }
 
-    file_put_contents($targetPath, $this->template);
+    file_put_contents($targetPath, $stub);
   }
 
   /* Replace variable placeholder inside stub file */
-  protected function replaceVariables($stub, $variables)
+  protected function replaceVariables($stub, $name, $variables)
   {
     if ($stub) {
       foreach ($variables as $variable => $action) {
         if ($action) {
-          $value = $action($variable);
+          $value = $action($name);
         } else {
           $value = $variable;
         }        

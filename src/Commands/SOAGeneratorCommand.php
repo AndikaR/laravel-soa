@@ -7,7 +7,7 @@ class SOAGeneratorCommand extends BaseCommand
      *
      * @var string
      */
-    protected $signature = 'soa:generate {name} {--services} {--repositories}';
+    protected $signature = 'soa:generate {name} {--s|services} {--r|repositories}';
 
     /**
      * The console command description.
@@ -20,14 +20,14 @@ class SOAGeneratorCommand extends BaseCommand
       'entities' => [
         [
           'prefix'  => '',
-          'postfix' => 'Repositry',
+          'postfix' => '',
           'path'    => __DIR__ . '/../../resources/stubs/entities/Entity.stub',
         ]
       ],
-      'resources' => [
+      'repositories' => [
         [
           'prefix'  => '',
-          'postfix' => 'Repositry',
+          'postfix' => 'Repository',
           'path'    => __DIR__ . '/../../resources/stubs/repositories/Repository.stub',
         ],
         [
@@ -82,27 +82,34 @@ class SOAGeneratorCommand extends BaseCommand
      */
     public function handle()
     {
-      $services = $this->argument('services');
-      $repositories = $this->argument('repositories');
+      $services = $this->option('services');
+      $repositories = $this->option('repositories');
 
       $name = $this->argument('name');
-      $all  = ((bool) $service !== (bool) $repository) ? false : true;
+      $all  = ((bool) $services !== (bool) $repositories) ? false : true;
+      $config = (object) config('soagenerator.generator');
 
       foreach ($this->stubs as $key => $stub) {
         if (!$all && $services && $key !== 'services') continue;
         if (!$all && $repositories && $key !== 'repositories') continue; 
 
-        foreach ($stub as $repository => $detail) {
-          $targetPath = $this->getTargetFilePath($name, $repository, $detail);
+        foreach ($stub as $detail) {
+          $params = [$config->basePath, $config->paths[$key], ucfirst($name)];
 
-          if (!$this->checkFile($targetPath)) continue;
+          if ($key === 'entities') {
+            array_pop($params);
+          }
 
-          $stub = $this->processStub($detail['path'], $name, $variables);
+          $fname = $this->getFileName($name, $detail) . '.php';
+          $params[] = $fname;
+          $targetPath = $this->joinPaths($params);
+
+          if ($this->fileExists($targetPath)) continue;
+
+          $stub = $this->processStub($detail['path'], $name, $this->variables);
           $this->createFileFromStub($targetPath, $stub);
-          
-          $fileName = $this->getFileName($name, $detail);
 
-          $this->info($fileName .' has been created.');
+          $this->info($fname .' has been created.');
         }
       }
     }
