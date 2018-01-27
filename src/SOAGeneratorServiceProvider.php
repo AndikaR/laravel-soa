@@ -1,6 +1,8 @@
 <?php namespace Andikarus\SOAGenerator;
 
 use Illuminate\Support\ServiceProvider;
+use Andikarus\SOAGenerator\Interfaces\IService;
+use Andikarus\SOAGenerator\Services\SOAGeneratorService;
 
 class SOAGeneratorServiceProvider extends ServiceProvider
 {
@@ -30,5 +32,7 @@ class SOAGeneratorServiceProvider extends ServiceProvider
     $this->mergeConfigFrom(
       __DIR__ . '/../resources/config/soagenerator.php', 'soagenerator'
     );
+
+    $this->app->bind(IService::class, SOAGeneratorService::class);
   }
 }
