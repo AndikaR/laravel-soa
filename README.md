@@ -1,8 +1,6 @@
 # laravel-soa
 Laravel 5.5 repository design pattern generator with SOA(Service Oriented Arcitecture) inspired from this blog post: http://dfg.gd/blog/decoupling-your-code-in-laravel-using-repositiories-and-services.
 
-Current stable version: dev-master, not recommended to use in production
-
 ### Installation 
 
 Add VCS repository in your composer.json file
@@ -16,11 +14,11 @@ Add VCS repository in your composer.json file
   ],
   "require": {
       ...,
-      "andikarus/laravel-soa": "dev-master"
+      "andikarus/laravel-soa": "1.0.0"
   },
 ```
 
-Run command `composer update` to get package, add following code in your `config/app.js` providers
+Run command `composer update` to get package then add following code in your `config/app.js` providers
 
 ```
   'providers' => [
@@ -28,15 +26,17 @@ Run command `composer update` to get package, add following code in your `config
     Andikarus\SOAGenerator\SOAGeneratorServiceProvider::class
   ];
 ```
-Run command `php artisan config:cache` then `php artisan vendor:publish` and select option with provider `Andikarus\SOAGenerator\SOAGeneratorServiceProvider` to get config file. Run command `php artisan config:cache` again to apply configuration for this package.
+Run command `php artisan config:cache` followed by `php artisan vendor:publish` and select option with provider `Andikarus\SOAGenerator\SOAGeneratorServiceProvider` to get config file. Run command `php artisan config:cache` again to apply configuration for this package.
 
 ### Usage
 
-Run command `php artisan soa:generate example` to make Example module. It will generate the following files and directories by default:
+Run command `php artisan soa:generate example -a` to generate all example module where example is your module name. If you only want to generate repositories or services, run command `php artisan soa:generate example` and you will be prompted to enter which type to generate. 
+
+It will generate the following structure by default configuration:
 
 ```
 app
-└── Modules
+└── Models
     ├── Entities
     |   └── Example.php
     ├── Repositories
