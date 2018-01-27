@@ -14,7 +14,7 @@ Add VCS repository in your composer.json file
   ],
   "require": {
       ...,
-      "andikarus/laravel-soa": "1.0.0"
+      "andikarus/laravel-soa": "^1.0.0"
   },
 ```
 
