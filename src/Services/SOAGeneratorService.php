@@ -86,7 +86,7 @@ class SOAGeneratorService extends BaseService implements IService
       $prompt = preg_split('/[\s*,\s*]*,+[\s*,\s*]*/', $prompt);
 
       /* Remove duplication */
-      $prompt = array_values(array_flip(array_flip($prompt)));
+      $prompt = array_values(array_unique($prompt));
 
       /* Set array for search */
       $search = array_flip($prompt);
@@ -105,7 +105,7 @@ class SOAGeneratorService extends BaseService implements IService
       foreach ($stub as $detail) {
         $paths = [$config->basePath, $config->paths[$key], ucfirst($name)];
 
-        if ($key === 'entities') {
+        if ((int) $this->refs[$key] === 1) {
           array_pop($paths);
         }
 
